@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <head>
+    <!-- 加载bootstrap3应用、CSS、Javascript文件，% %为Django模板标签语言 -->
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <!-- 设置页面标题 -->
+    <title>渠道评估平台</title>
+
+  </head>
+
+  <body role="document">
+
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/event_manage/">渠道评估平台</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <!-- 设置页面导航栏，class=active表示当前菜单处于选中状态 -->
+            <li><a href="/index/">留存查询</a></li>
+            <!-- href=/guest_manage/用于跳转到嘉宾管理页面 -->
+            <li class="active"><a href="/lt_est/">LT预估</a></li>
+              <li><a href="/dau_est/">DAU预估</a></li>
+              <li><a href="/dnu_est/">DNU预估</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <!-- {}为Django模板语言，用于定义显示变量，user为客户端获取的浏览器sessionid对应的登录用户名 -->
+            <!--a href 超文本链接-->
+{#            <li><a href="#">{{user}}</a></li>#}
+            <!-- href=/logout/用于跳转到退出路径 -->
+            <li><a href="/logout/">退出</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <!-- <div class="container theme-showcase" role="main"> -->
+
+      <!-- 发布会搜索栏 -->
+      <!-- style属性中padding-top用于设置元素的上内边距，如果不设置该属性，发布会列表可能会被导航栏遮挡 -->
+      <div class="page-header" style="padding-top:60px;">
+          <div id="navbar" class="navbar-collapse collapse">
+            <!-- method=get 为HTTP请求方式，action=/search_name/为搜索请求路径 -->
+            <form class="navbar-form" method="get" action="/lt_est_cal/">
+              <div class="form-group">
+                <!-- name=name为搜索输入框name的属性值 -->
+                <input name="name" type="text" placeholder="渠道号" class="form-control">
+                  <input type="text" name="daterange" value="01/01/2020 - 01/31/2020" class="form-control" />
+              </div>
+              <button type="submit" class="btn btn-success">搜索</button>
+            </form>
+          </div><!--/.navbar-collapse -->
+        </div>
+
+      <!--发布会表单-->
+      <!-- style属性中padding-top用于设置元素的上内边距，如果不设置该属性，发布会列表可能会被导航栏遮挡 -->
+      <div class="row" style="padding-top: 80px;">
+        <div class="col-md-6">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>统计周期</th>
+                <th>渠道ID</th>
+{#                  <th>日均新增</th>#}
+                <th>30LT</th>
+                <th>60LT</th>
+                <th>90LT</th>
+                <th>120LT</th>
+                <th>180LT</th>
+                  <th>360LT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 通过Django模板语言，使用for循环，循环打印发布会的id、name等字段，注意for循环语句需要有对应的endfor来表示语句的结束 -->
+              <!-- events 这是在 views 中传递过来的第三个参数的 key -->
+              {% for event in events %}
+                <tr>
+                  <td>{{ event.date }}</td>
+                  <td>{{ event.name }}</td>
+                    <td>{{ event.lt_30 }}</td>
+                    <td>{{ event.lt_60 }}</td>
+                    <td>{{ event.lt_90 }}</td>
+                    <td>{{ event.lt_120 }}</td>
+                    <td>{{ event.lt_180 }}</td>
+                    <td>{{ event.lt_360 }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+  </body>
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
+</html>
