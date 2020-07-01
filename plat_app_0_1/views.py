@@ -35,15 +35,6 @@ def index(request):
     #return HttpResponse("This is a small step.")
     return render(request, "index.html")
 
-# def search_name(request):
-#     # 通过get()方法获取name关键字
-#     search_name = request.GET.get("name", "")
-#     # 在Event中匹配name字段
-#     event_list = Ch_rete_dtl.objects.filter(ch_id__contains=search_name)
-#     # 将匹配到的发布会列表注意这里是列表不是对象，返回给客户端
-#     # render方法接收第三个参数是后台返回给浏览器的数据，它是一个字典。
-#     # user，events 是你自定义的指针名字，会被对应的html文件应用（即event_manage）
-#     return render(request, "index.html", {"events":event_list})
 
 def search_name(request):
     # 通过get()方法获取name关键字
@@ -57,11 +48,8 @@ def search_name(request):
     event_list = Ch_rete_dtl.objects.filter(ch_id__contains=search_name,
                                             pday__gte=start_date,
                                             pday__lte=end_date)
-    # 将匹配到的发布会列表注意这里是列表不是对象，返回给客户端
-    # render方法接收第三个参数是后台返回给浏览器的数据，它是一个字典。
-    # user，events 是你自定义的指针名字，会被对应的html文件应用（即event_manage）
     return render(request, "index.html", {"events":event_list})
-    #return HttpResponse(start_date1)
+
 
 def lt_est(request):
     return render(request, "lt_est.html")
