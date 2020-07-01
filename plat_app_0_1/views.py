@@ -94,4 +94,9 @@ def lt_est_cal(request):
     res_dict['lt_360'] = power_pred(opt, 360)
     res_list = [res_dict]
     return render(request, "lt_est.html", {"events": res_list})
-########
+
+def dnu_est_cal():
+    pass
+
+def dau_est_cal():
+    pass
