@@ -84,8 +84,13 @@ def lt_est_cal(request):
                                             pday__gte=start_date,
                                             pday__lte=end_date)
     query_df = pd.DataFrame(list(event_list.values()))
-    #Django查询列表在服务端环境，字段排序会发生变化，导致基于位置的切片字段混乱，在此人为抛出问题字段
-    query_df = query_df.drop('dnu',axis=1)
+    #Django查询列表在服务端环境，字段排序会发生变化，导致基于位置的切片字段混乱，故在此重新组织排序
+    query_df = query_df[['id', 'pday', 'ch_id', 'rete_d1', 'rete_d2', 'rete_d3', 'rete_d4',
+       'rete_d5', 'rete_d6', 'rete_d7', 'rete_d8', 'rete_d9', 'rete_d10',
+       'rete_d11', 'rete_d12', 'rete_d13', 'rete_d14', 'rete_d15', 'rete_d16',
+       'rete_d17', 'rete_d18', 'rete_d19', 'rete_d20', 'rete_d21', 'rete_d22',
+       'rete_d23', 'rete_d24', 'rete_d25', 'rete_d26', 'rete_d27', 'rete_d28',
+       'rete_d29', 'dnu']]
     days = len(query_df)
     opt = []
     for i in range(days - 1):
