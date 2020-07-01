@@ -84,6 +84,8 @@ def lt_est_cal(request):
                                             pday__gte=start_date,
                                             pday__lte=end_date)
     query_df = pd.DataFrame(list(event_list.values()))
+    #Django查询列表在服务端环境，字段排序会发生变化，导致基于位置的切片字段混乱，在此人为抛出问题字段
+    query_df = query_df.drop('dnu',axis=1)
     days = len(query_df)
     opt = []
     for i in range(days - 1):
