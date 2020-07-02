@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from plat_app_0_1 import views
 urlpatterns = [
+    path('', views.index),
     path('admin/', admin.site.urls),
     path('index/', views.index),
     path('search_name/', views.search_name),
