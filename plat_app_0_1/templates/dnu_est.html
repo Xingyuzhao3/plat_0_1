@@ -49,6 +49,7 @@
               <div class="form-group">
                 <!-- name=name为搜索输入框name的属性值 -->
                 <input name="name" type="text" placeholder="渠道号" class="form-control">
+                  <input type="text" name="daterange" value="01/01/2020 - 01/31/2020" class="form-control" />
               </div>
               <button type="submit" class="btn btn-success">搜索</button>
             </form>
@@ -117,4 +118,13 @@
 
 
   </body>
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+</script>
 </html>

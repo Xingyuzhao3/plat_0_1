@@ -98,5 +98,7 @@ def lt_est_cal(request):
 def dnu_est_cal():
     pass
 
-def dau_est_cal():
-    pass
+def dau_est_cal(request):
+    search_name = request.GET.get("name", "")
+    date_fmt = request.GET.get("daterange","")
+    dnu_set = request.GET.get("daterange", "")
