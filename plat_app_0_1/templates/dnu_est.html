@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <head>
     <!-- 加载bootstrap3应用、CSS、Javascript文件，% %为Django模板标签语言 -->
     {% load bootstrap3 %}
@@ -45,11 +49,27 @@
       <div class="page-header" style="padding-top:60px;">
           <div id="navbar" class="navbar-collapse collapse">
             <!-- method=get 为HTTP请求方式，action=/search_name/为搜索请求路径 -->
-            <form class="navbar-form" method="get" action="/search_name/">
+            <form class="navbar-form" method="get" action="/dnu_est_cal/">
               <div class="form-group">
                 <!-- name=name为搜索输入框name的属性值 -->
                 <input name="name" type="text" placeholder="渠道号" class="form-control">
                   <input type="text" name="daterange" value="01/01/2020 - 01/31/2020" class="form-control" />
+                  <input name="dau_goal" type="text" placeholder="DAU目标" class="form-control">
+                  <input type="text" list="itemlist" name="est_time_range" placeholder="预计达成（月份）" class="form-control">
+                   <datalist id="itemlist">
+                    <option>1个月</option>
+                    <option>2个月</option>
+                       <option>3个月</option>
+                       <option>4个月</option>
+                       <option>5个月</option>
+                       <option>6个月</option>
+                       <option>7个月</option>
+                       <option>8个月</option>
+                       <option>9个月</option>
+                       <option>10个月</option>
+                       <option>11个月</option>
+                       <option>12个月</option>
+                   </datalist>
               </div>
               <button type="submit" class="btn btn-success">搜索</button>
             </form>
@@ -65,7 +85,8 @@
               <tr>
                 <th>日期</th>
                 <th>渠道ID</th>
-                  <th>预估新增目标</th>
+                  <th>DAU目标</th>
+                  <th>所需DNU</th>
               </tr>
             </thead>
             <tbody>
@@ -73,38 +94,10 @@
               <!-- events 这是在 views 中传递过来的第三个参数的 key -->
               {% for event in events %}
                 <tr>
-                  <td>{{ event.pday }}</td>
-                  <td>{{ event.ch_id }}</td>
-                  <td>{{ event.dnu }}</td>
-                    <td>{{ event.rete_d1 }}</td>
-                    <td>{{ event.rete_d2 }}</td>
-                    <td>{{ event.rete_d3 }}</td>
-                    <td>{{ event.rete_d4 }}</td>
-                    <td>{{ event.rete_d5 }}</td>
-                    <td>{{ event.rete_d6 }}</td>
-                    <td>{{ event.rete_d7 }}</td>
-                    <td>{{ event.rete_d8 }}</td>
-                    <td>{{ event.rete_d9 }}</td>
-                    <td>{{ event.rete_d10 }}</td>
-                    <td>{{ event.rete_d11 }}</td>
-                    <td>{{ event.rete_d12 }}</td>
-                    <td>{{ event.rete_d13 }}</td>
-                    <td>{{ event.rete_d14 }}</td>
-                    <td>{{ event.rete_d15 }}</td>
-                    <td>{{ event.rete_d16 }}</td>
-                    <td>{{ event.rete_d17 }}</td>
-                    <td>{{ event.rete_d18 }}</td>
-                    <td>{{ event.rete_d19 }}</td>
-                    <td>{{ event.rete_d20 }}</td>
-                    <td>{{ event.rete_d21 }}</td>
-                    <td>{{ event.rete_d22 }}</td>
-                    <td>{{ event.rete_d23 }}</td>
-                    <td>{{ event.rete_d24 }}</td>
-                    <td>{{ event.rete_d25 }}</td>
-                    <td>{{ event.rete_d26 }}</td>
-                    <td>{{ event.rete_d27 }}</td>
-                    <td>{{ event.rete_d28 }}</td>
-                    <td>{{ event.rete_d29 }}</td>
+                    <td>{{ event.date_fmt }}</td>
+                <td>{{ event.ch_id }}</td>
+                <td>{{ event.dau }}</td>
+                <td>{{ event.dnu }}</td>
                 </tr>
               {% endfor %}
             </tbody>

@@ -24,5 +24,7 @@ urlpatterns = [
     path('lt_est/', views.lt_est),
     path('dau_est/', views.dau_est),
     path('dnu_est/', views.dnu_est),
-    path('lt_est_cal/', views.lt_est_cal)
+    path('lt_est_cal/', views.lt_est_cal),
+    path('dau_est_cal/', views.dau_est_cal),
+    path('dnu_est_cal/', views.dnu_est_cal)
 ]

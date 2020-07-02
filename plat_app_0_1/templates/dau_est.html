@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <head>
     <!-- 加载bootstrap3应用、CSS、Javascript文件，% %为Django模板标签语言 -->
     {% load bootstrap3 %}
@@ -49,7 +53,7 @@
               <div class="form-group">
                 <!-- name=name为搜索输入框name的属性值 -->
                 <input name="name" type="text" placeholder="渠道号" class="form-control">
-                  <input type="text" name="daterange" placeholder="留存计算区间" value="01/01/2020 - 01/31/2020" class="form-control" />
+                  <input type="text" name="daterange" value="01/01/2020 - 01/31/2020" class="form-control" />
                   <input name="dnu_data" type="text" placeholder="预估每日新增量" class="form-control">
                   <input type="text" list="itemlist" name="est_time_range" placeholder="预估时间周期（月份）" class="form-control">
                    <datalist id="itemlist">
@@ -82,6 +86,7 @@
                 <th>日期</th>
                 <th>渠道ID</th>
                   <th>DAU</th>
+                  <th>DNU</th>
               </tr>
             </thead>
             <tbody>
@@ -89,38 +94,10 @@
               <!-- events 这是在 views 中传递过来的第三个参数的 key -->
               {% for event in events %}
                 <tr>
-                  <td>{{ event.pday }}</td>
-                  <td>{{ event.ch_id }}</td>
-                  <td>{{ event.dnu }}</td>
-                    <td>{{ event.rete_d1 }}</td>
-                    <td>{{ event.rete_d2 }}</td>
-                    <td>{{ event.rete_d3 }}</td>
-                    <td>{{ event.rete_d4 }}</td>
-                    <td>{{ event.rete_d5 }}</td>
-                    <td>{{ event.rete_d6 }}</td>
-                    <td>{{ event.rete_d7 }}</td>
-                    <td>{{ event.rete_d8 }}</td>
-                    <td>{{ event.rete_d9 }}</td>
-                    <td>{{ event.rete_d10 }}</td>
-                    <td>{{ event.rete_d11 }}</td>
-                    <td>{{ event.rete_d12 }}</td>
-                    <td>{{ event.rete_d13 }}</td>
-                    <td>{{ event.rete_d14 }}</td>
-                    <td>{{ event.rete_d15 }}</td>
-                    <td>{{ event.rete_d16 }}</td>
-                    <td>{{ event.rete_d17 }}</td>
-                    <td>{{ event.rete_d18 }}</td>
-                    <td>{{ event.rete_d19 }}</td>
-                    <td>{{ event.rete_d20 }}</td>
-                    <td>{{ event.rete_d21 }}</td>
-                    <td>{{ event.rete_d22 }}</td>
-                    <td>{{ event.rete_d23 }}</td>
-                    <td>{{ event.rete_d24 }}</td>
-                    <td>{{ event.rete_d25 }}</td>
-                    <td>{{ event.rete_d26 }}</td>
-                    <td>{{ event.rete_d27 }}</td>
-                    <td>{{ event.rete_d28 }}</td>
-                    <td>{{ event.rete_d29 }}</td>
+                  <td>{{ event.date_fmt }}</td>
+                <td>{{ event.ch_id }}</td>
+                <td>{{ event.dau }}</td>
+                <td>{{ event.dnu }}</td>
                 </tr>
               {% endfor %}
             </tbody>
