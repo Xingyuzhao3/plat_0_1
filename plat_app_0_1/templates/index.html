@@ -26,17 +26,14 @@
           <ul class="nav navbar-nav">
             <!-- 设置页面导航栏，class=active表示当前菜单处于选中状态 -->
             <li class="active"><a href="#">留存查询</a></li>
-            <!-- href=/guest_manage/用于跳转到嘉宾管理页面 -->
+
             <li><a href="/lt_est/">LT预估</a></li>
               <li><a href="/dau_est/">DAU预估</a></li>
               <li><a href="/dnu_est/">DNU预估</a></li>
               <li><a href="/cost_input/">成本录入</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <!-- {}为Django模板语言，用于定义显示变量，user为客户端获取的浏览器sessionid对应的登录用户名 -->
-            <!--a href 超文本链接-->
-{#            <li><a href="#">{{user}}</a></li>#}
-            <!-- href=/logout/用于跳转到退出路径 -->
+
             <li><a href="/logout/">退出</a></li>
           </ul>
         </div><!--/.nav-collapse -->
@@ -45,8 +42,7 @@
 
     <!-- <div class="container theme-showcase" role="main"> -->
 
-      <!-- 发布会搜索栏 -->
-      <!-- style属性中padding-top用于设置元素的上内边距，如果不设置该属性，发布会列表可能会被导航栏遮挡 -->
+
       <div class="page-header" style="padding-top:60px;">
           <div id="navbar" class="navbar-collapse collapse">
             <!-- method=get 为HTTP请求方式，action=/search_name/为搜索请求路径 -->
@@ -61,8 +57,7 @@
           </div><!--/.navbar-collapse -->
         </div>
 
-      <!--发布会表单-->
-      <!-- style属性中padding-top用于设置元素的上内边距，如果不设置该属性，发布会列表可能会被导航栏遮挡 -->
+
       <div class="row" style="padding-top: 80px;">
         <div class="col-md-6">
           <table class="table table-striped">
@@ -103,8 +98,7 @@
               </tr>
             </thead>
             <tbody>
-              <!-- 通过Django模板语言，使用for循环，循环打印发布会的id、name等字段，注意for循环语句需要有对应的endfor来表示语句的结束 -->
-              <!-- events 这是在 views 中传递过来的第三个参数的 key -->
+
               {% for event in events %}
                 <tr>
                   <td>{{ event.pday }}</td>
