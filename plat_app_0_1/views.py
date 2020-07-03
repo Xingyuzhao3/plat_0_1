@@ -91,6 +91,16 @@ def dau_est(request):
 def dnu_est(request):
     return render(request, "dnu_est.html")
 
+def cost_input(request):
+    return render(request, "cost_ipt.html")
+
+def cost_input_sumit(request):
+    search_name = request.GET.get("select", "")
+    date_fmt = request.GET.get("date_setted","")
+    cost = request.GET.get("cost", "")
+    arpu = request.GET.get("arpu", "")
+    return HttpResponse(search_name+date_fmt+cost+arpu)
+
 def lt_est_cal(request):
     search_name = request.GET.get("name", "")
     date_fmt = request.GET.get("daterange","")

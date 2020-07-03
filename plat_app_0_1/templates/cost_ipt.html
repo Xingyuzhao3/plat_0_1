@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <head>
+    <!-- 加载bootstrap3应用、CSS、Javascript文件，% %为Django模板标签语言 -->
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <!-- 设置页面标题 -->
+    <title>渠道评估平台</title>
+
+  </head>
+
+  <body role="document">
+
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/lt_est/">渠道评估平台</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <!-- 设置页面导航栏，class=active表示当前菜单处于选中状态 -->
+            <li><a href="/index/">留存查询</a></li>
+            <!-- href=/guest_manage/用于跳转到嘉宾管理页面 -->
+            <li><a href="/lt_est/">LT预估</a></li>
+              <li><a href="/dau_est/">DAU预估</a></li>
+              <li><a href="/dnu_est/">DNU预估</a></li>
+              <li class="active"><a href="#">成本录入</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <!-- {}为Django模板语言，用于定义显示变量，user为客户端获取的浏览器sessionid对应的登录用户名 -->
+            <!--a href 超文本链接-->
+{#            <li><a href="#">{{user}}</a></li>#}
+            <!-- href=/logout/用于跳转到退出路径 -->
+            <li><a href="/logout/">退出</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <!-- <div class="container theme-showcase" role="main"> -->
+
+      <!-- 发布会搜索栏 -->
+      <!-- style属性中padding-top用于设置元素的上内边距，如果不设置该属性，发布会列表可能会被导航栏遮挡 -->
+      <div class="page-header" style="padding-top:60px;">
+          <div id="navbar" class="navbar-collapse collapse">
+            <!-- method=get 为HTTP请求方式，action=/search_name/为搜索请求路径 -->
+            <form class="navbar-form" method="get" action="/cost_input_submit/" id="cost-form">
+              <div class="form-group" style="width:50%">
+                <!-- name=name为搜索输入框name的属性值 -->
+{#                  <label>录入日期</label>#}
+{#                <input type="text" name="date_setted" value="10/24/1984" /><br>#}
+{#                  <label>渠道号</label>#}
+{#                <input name="name" type="text" placeholder="渠道号" class="form-control"><br>#}
+{#                  <label>成本</label>#}
+{#                <input name="cost" type="text" placeholder="成本" class="form-control"><br>#}
+{#                  <label>当日收入</label>#}
+{#                <input name="cost" type="text" placeholder="当日收入" class="form-control">#}
+{#                <input name="date_fmt" type="text" placeholder="日期" class="form-control">#}
+                  <fieldset>
+                    <legend>渠道成本、收入录入</legend>
+                    <div class="row responsive-label">
+                    <div class="col-sm-12 col-md-3">
+                    <label for="date_setted" style="width:50%">日期</label>
+                    </div>
+                    <div class="col-sm-12 col-md">
+                    <input type="text" name="date_setted" value="01/01/2020" style="width:50%" class="form-control"; />
+                    </div>
+                    </div>
+                      <div class="row responsive-label">
+                    <div class="col-sm-12 col-md-3">
+                    <label for="ch_id">渠道ID</label>
+                    </div>
+                    <div class="col-sm-12 col-md">
+                    <select name="select" form="cost-form" style="width:50%" class="form-control";>
+                        <option value="1">广点通1</option>
+                        <option value="2">广点通2</option>
+                        <option value="3">广点通3</option>
+                        <option value="4">广点通4</option>
+                        <option value="5">头条1</option>
+                        <option value="6">头条2</option>
+                        <option value="7">头条3</option>
+                        <option value="8">头条4</option></select>
+                    </div>
+                    </div>
+{#                      <div class="row responsive-label">#}
+{#                    <div class="col-sm-12 col-md-3">#}
+{#                    <label for="name" style="width:50%">渠道号</label>#}
+{#                    </div>#}
+{#                    <div class="col-sm-12 col-md">#}
+{#                    <input type="text" name="name" placeholder="渠道号" style="width:50%" class="form-control"; />#}
+{#                    </div>#}
+{#                    </div>#}
+                                            <div class="row responsive-label">
+                    <div class="col-sm-12 col-md-3">
+                    <label for="cost" style="width:50%">成本</label>
+                    </div>
+                    <div class="col-sm-12 col-md">
+                    <input type="text" name="cost" placeholder="当日成本（单位：元）" style="width:50%" class="form-control"; />
+                    </div>
+                    </div>
+                                            <div class="row responsive-label">
+                    <div class="col-sm-12 col-md-3">
+                    <label for="arpu" style="width:50%">ARPU</label>
+                    </div>
+                    <div class="col-sm-12 col-md">
+                    <input type="text" name="arpu" placeholder="当日ARPU（单位：元）" style="width:50%" class="form-control"; />
+
+                    </div>
+                    </div>
+{#                      </div>#}
+
+                      <button type="submit" class="btn btn-success" onclick="btn()">提交</button>
+                    </fieldset>
+                  </div>
+
+                </form>
+          </div><!--/.navbar-collapse -->
+        </div>
+
+      <!--发布会表单-->
+      <!-- style属性中padding-top用于设置元素的上内边距，如果不设置该属性，发布会列表可能会被导航栏遮挡 -->
+{#      <div class="row" style="padding-top: 80px;">#}
+{#        <div class="col-md-6">#}
+{#          <table class="table table-striped">#}
+{#            <thead>#}
+{#              <tr>#}
+{#                <th>日期</th>#}
+{#                <th>渠道ID</th>#}
+{#                  <th>新增用户数</th>#}
+{#                <th>后1日留存</th>#}
+{#                <th>后2日留存</th>#}
+{#                <th>后3日留存</th>#}
+{#                <th>后4日留存</th>#}
+{#                <th>后5日留存</th>#}
+{#                  <th>后6日留存</th>#}
+{#                <th>后7日留存</th>#}
+{#                <th>后8日留存</th>#}
+{#                <th>后9日留存</th>#}
+{#                <th>后10日留存</th>#}
+{#                <th>后11日留存</th>#}
+{#                <th>后12日留存</th>#}
+{#                <th>后13日留存</th>#}
+{#                <th>后14日留存</th>#}
+{#                <th>后15日留存</th>#}
+{#                <th>后16日留存</th>#}
+{#                <th>后17日留存</th>#}
+{#                  <th>后18日留存</th>#}
+{#                <th>后19日留存</th>#}
+{#                <th>后20日留存</th>#}
+{#                <th>后21日留存</th>#}
+{#                <th>后22日留存</th>#}
+{#                <th>后23日留存</th>#}
+{#                <th>后24日留存</th>#}
+{#                <th>后25日留存</th>#}
+{#                <th>后26日留存</th>#}
+{#                <th>后27日留存</th>#}
+{#                <th>后28日留存</th>#}
+{#                <th>后29日留存</th>#}
+{#              </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#              <!-- 通过Django模板语言，使用for循环，循环打印发布会的id、name等字段，注意for循环语句需要有对应的endfor来表示语句的结束 -->#}
+{#              <!-- events 这是在 views 中传递过来的第三个参数的 key -->#}
+{#              {% for event in events %}#}
+{#                <tr>#}
+{#                  <td>{{ event.pday }}</td>#}
+{#                  <td>{{ event.ch_id }}</td>#}
+{#                  <td>{{ event.dnu }}</td>#}
+{#                    <td>{{ event.rete_d1 }}</td>#}
+{#                    <td>{{ event.rete_d2 }}</td>#}
+{#                    <td>{{ event.rete_d3 }}</td>#}
+{#                    <td>{{ event.rete_d4 }}</td>#}
+{#                    <td>{{ event.rete_d5 }}</td>#}
+{#                    <td>{{ event.rete_d6 }}</td>#}
+{#                    <td>{{ event.rete_d7 }}</td>#}
+{#                    <td>{{ event.rete_d8 }}</td>#}
+{#                    <td>{{ event.rete_d9 }}</td>#}
+{#                    <td>{{ event.rete_d10 }}</td>#}
+{#                    <td>{{ event.rete_d11 }}</td>#}
+{#                    <td>{{ event.rete_d12 }}</td>#}
+{#                    <td>{{ event.rete_d13 }}</td>#}
+{#                    <td>{{ event.rete_d14 }}</td>#}
+{#                    <td>{{ event.rete_d15 }}</td>#}
+{#                    <td>{{ event.rete_d16 }}</td>#}
+{#                    <td>{{ event.rete_d17 }}</td>#}
+{#                    <td>{{ event.rete_d18 }}</td>#}
+{#                    <td>{{ event.rete_d19 }}</td>#}
+{#                    <td>{{ event.rete_d20 }}</td>#}
+{#                    <td>{{ event.rete_d21 }}</td>#}
+{#                    <td>{{ event.rete_d22 }}</td>#}
+{#                    <td>{{ event.rete_d23 }}</td>#}
+{#                    <td>{{ event.rete_d24 }}</td>#}
+{#                    <td>{{ event.rete_d25 }}</td>#}
+{#                    <td>{{ event.rete_d26 }}</td>#}
+{#                    <td>{{ event.rete_d27 }}</td>#}
+{#                    <td>{{ event.rete_d28 }}</td>#}
+{#                    <td>{{ event.rete_d29 }}</td>#}
+{#                </tr>#}
+{#              {% endfor %}#}
+{#            </tbody>#}
+{#          </table>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#    </div>#}
+
+
+
+
+  </body>
+<script>
+    function btn(){
+        alert("提交成功,点击确认进行校验！")
+    }
+</script>
+<script>
+$(function() {
+  $('input[name="date_setted"]').daterangepicker({
+    singleDatePicker: true,
+    showDropdowns: true,
+    minYear: 1901,
+    maxYear: parseInt(moment().format('YYYY'),10)
+  }, function(start, end, label) {
+    var years = moment().diff(start, 'years');
+    //alert("You are " + years + " years old!");
+  });
+});
+</script>
+</html>

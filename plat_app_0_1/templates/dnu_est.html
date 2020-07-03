@@ -30,6 +30,7 @@
             <li><a href="/lt_est/">LT预估</a></li>
               <li><a href="/dau_est/">DAU预估</a></li>
               <li class="active"><a href="/dnu_est/">DNU预估</a></li>
+              <li><a href="/cost_input/">成本录入</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <!-- {}为Django模板语言，用于定义显示变量，user为客户端获取的浏览器sessionid对应的登录用户名 -->
@@ -49,7 +50,7 @@
       <div class="page-header" style="padding-top:60px;">
           <div id="navbar" class="navbar-collapse collapse">
             <!-- method=get 为HTTP请求方式，action=/search_name/为搜索请求路径 -->
-            <form class="navbar-form" method="get" action="/dnu_est_cal/">
+            <form class="navbar-form" method="get" action="/dnu_est_cal/" id="dnu-form">
               <div class="form-group">
                 <!-- name=name为搜索输入框name的属性值 -->
                 <input name="name" type="text" placeholder="渠道号" class="form-control">
@@ -70,6 +71,20 @@
                        <option>11个月</option>
                        <option>12个月</option>
                    </datalist>
+{#                  <select name="select" form="dnu-form" class="form-control";>#}
+{#                      <option>1个月</option>#}
+{#                    <option>2个月</option>#}
+{#                       <option>3个月</option>#}
+{#                       <option>4个月</option>#}
+{#                       <option>5个月</option>#}
+{#                       <option>6个月</option>#}
+{#                       <option>7个月</option>#}
+{#                       <option>8个月</option>#}
+{#                       <option>9个月</option>#}
+{#                       <option>10个月</option>#}
+{#                       <option>11个月</option>#}
+{#                       <option>12个月</option>#}
+{#                  </select>#}
               </div>
               <button type="submit" class="btn btn-success">搜索</button>
             </form>
