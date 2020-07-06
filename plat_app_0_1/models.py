@@ -40,3 +40,9 @@ class Dim_ch(models.Model):
     ch = models.IntegerField() #发布会标题
     ch_type = models.CharField(max_length=200)
     ch_name = models.CharField(max_length=200)
+
+class Cost_ch_dtl(models.Model):
+    submit_date = models.CharField(max_length=200)
+    ch_id = models.IntegerField()
+    cost = models.FloatField()
+    arpu = models.FloatField
